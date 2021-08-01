@@ -7,7 +7,7 @@ on:
         required: true
 
 jobs:
-  realizar-build:
+  deploy-em-qa:
     runs-on: ubuntu-latest
 
     environment: qa
