@@ -1,0 +1,24 @@
+name: work-build-nest
+on:
+  push:
+    branches:
+      - 'feature/**'
+  
+jobs:
+  realizar-build:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      VARIAVEL_NAO_SECRETA: este é o valor de uma variável não secreta
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npm run build
+      - run: echo 'variavel secreta:'
+      - run: echo $CODIGO_SECRETO
+      - run: echo 'variavel não secreta:'
+      - run: echo $VARIAVEL_NAO_SECRETA
+      - run: echo 'FFIMMMM'
