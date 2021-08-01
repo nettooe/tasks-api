@@ -1,0 +1,23 @@
+name: Implantar em QA
+on:
+  workflow_dispatch:
+    inputs:
+      versao:
+        description: 'Qual o número completo da versão a ser implentada em QA? (Ex.: 1.7.2)'
+        required: true
+
+jobs:
+  deploy-em-qa:
+    runs-on: ubuntu-latest
+
+    environment: qa
+
+    env:
+      INPUT_VERSAO: ${{ github.event.inputs.versao }}
+      CODIGO_SECRETO: ${{ secrets.CODIGO_SECRETO }}
+    
+    steps:
+      - run: echo 'variavel secreta:'
+      - run: echo $CODIGO_SECRETO
+      - run: echo 'Versão Desejada $INPUT_VERSAO'
+      - run: echo 'FFIMMMM'
