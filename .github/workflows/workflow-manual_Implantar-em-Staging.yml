@@ -1,16 +1,16 @@
-name: Implantar em QA
+name: Implantar em Staging
 on:
   workflow_dispatch:
     inputs:
       versao:
-        description: 'Qual o número completo da versão a ser implentada em QA? (Ex.: 1.7.2)'
+        description: 'Qual o número completo da versão a ser implentada em Staging? (Ex.: 1.7.2)'
         required: true
 
 jobs:
-  deploy-em-qa:
+  deploy-em-stg:
     runs-on: ubuntu-latest
 
-    environment: qa
+    environment: stg
 
     env:
       INPUT_VERSAO: ${{ github.event.inputs.versao }}
