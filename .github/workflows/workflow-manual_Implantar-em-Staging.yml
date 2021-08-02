@@ -7,10 +7,10 @@ on:
         required: true
 
 jobs:
-  deploy-em-stg:
+  deploy-em-staging:
     runs-on: ubuntu-latest
 
-    environment: stg
+    environment: staging
 
     env:
       INPUT_VERSAO: ${{ github.event.inputs.versao }}

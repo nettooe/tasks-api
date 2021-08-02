@@ -1,19 +1,12 @@
-name: B - Gerar Release Candidate e publica em DEV
+name: Gerar Imagem docker para a Release e publicar em DEV
 on:
   push:
     branches:
-      - 'develop'
-      - 'hotfix**'
-      - 'bugfix**'
-  pull_request:
-    branches:
-      - 'develop'
-      - 'hotfix**'
-      - 'bugfix**'
+      - 'release/*'
   
 jobs:
   build:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x]
@@ -76,7 +69,7 @@ jobs:
       - run: echo "colocar aqui o comando de geração da imagem docker"
       - run: echo 'FFIMMMM'
 
-  criar-container:
+  deploy-DEV:
     needs: [build, teste-unitario, construir-imagem-docker]
     runs-on: ubuntu-latest    
     environment: dev
