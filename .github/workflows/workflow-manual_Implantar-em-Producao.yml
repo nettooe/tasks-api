@@ -7,10 +7,10 @@ on:
         required: true
 
 jobs:
-  deploy-em-prod:
+  deploy-em-producao:
     runs-on: ubuntu-latest
 
-    environment: prod
+    environment: producao
 
     env:
       INPUT_VERSAO: ${{ github.event.inputs.versao }}
