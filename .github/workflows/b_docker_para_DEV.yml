@@ -1,0 +1,90 @@
+name: B - Gerar Release Candidate e publica em DEV
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'hotfix**'
+      - 'bugfix**'
+  pull_request:
+    branches:
+      - 'develop'
+      - 'hotfix**'
+      - 'bugfix**'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    environment: dev
+
+    env:
+      VARIAVEL_NAO_SECRETA: este é o valor de uma variável não secreta
+      CODIGO_SECRETO: ${{ secrets.CODIGO_SECRETO }}
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - run: npm ci
+      - run: npm run build --if-present
+
+      - run: echo 'variavel secreta:'
+      - run: echo $CODIGO_SECRETO
+      - run: echo 'variavel não secreta:'
+      - run: echo $VARIAVEL_NAO_SECRETA
+      - run: echo 'FFIMMMM'
+  
+  teste-unitario:
+    needs: [build]
+    runs-on: ubuntu-latest    
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    environment: dev
+
+    env:
+      VARIAVEL_NAO_SECRETA: este é o valor de uma variável não secreta
+      CODIGO_SECRETO: ${{ secrets.CODIGO_SECRETO }}
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - run: npm ci
+      - run: npm run test
+
+      - run: echo 'FFIMMMM'
+
+  construir-imagem-docker:
+    needs: [build, teste-unitario]
+    runs-on: ubuntu-latest    
+    environment: dev
+    env:
+      VARIAVEL_NAO_SECRETA: este é o valor de uma variável não secreta
+      CODIGO_SECRETO: ${{ secrets.CODIGO_SECRETO }}    
+    steps:
+      - uses: actions/checkout@v2
+      - run: ls
+      - run: echo "colocar aqui o comando de geração da imagem docker"
+      - run: echo 'FFIMMMM'
+
+  criar-container:
+    needs: [build, teste-unitario, construir-imagem-docker]
+    runs-on: ubuntu-latest    
+    environment: dev
+    env:
+      VARIAVEL_NAO_SECRETA: este é o valor de uma variável não secreta
+      CODIGO_SECRETO: ${{ secrets.CODIGO_SECRETO }}    
+    steps:
+      - uses: actions/checkout@v2
+      - run: ls
+      - run: echo "colocar aqui o comando de criação do container no ECS"
+      - run: echo 'FFIMMMM'
