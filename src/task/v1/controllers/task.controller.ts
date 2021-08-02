@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { Task } from '../../shared/task';
-import { TaskService } from '../../shared/task.service';
+import { Task } from '../shared/task';
+import { TaskService } from '../shared/task.service';
 
 
-@Controller('tasks')
+@Controller('tasks/v1')
 export class TaskController {
     constructor(private readonly taskService: TaskService){}
 
